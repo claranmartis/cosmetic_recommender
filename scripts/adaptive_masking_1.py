@@ -51,9 +51,8 @@ def color_quant(img):
     
     # define criteria, number of clusters(K) and apply kmeans()
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-    K = 10
+    K = 4
     ret,label,center=cv2.kmeans(Z,K,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
-    
     
     
     # Now convert back into uint8, and make original image
@@ -76,6 +75,14 @@ for img_path in picture_names:
         image = cv2.imread(img_path)
         #make a copy of the image for processing
         img = image.copy()
+        
+        '''img_yuv = cv2.cvtColor(img, cv2.COLOR_BGR2YUV)
+        # equalize the histogram of the Y channel
+        img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])
+        
+        # convert the YUV image back to RGB format
+        img_hist_eq = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)
+        '''
         #face detection
         detected_faces = detect_faces(img)
         #crop the detected face
@@ -106,10 +113,28 @@ for img_path in picture_names:
 
         #color quantization
         quantized_image = color_quant(face)
-        
+        #plt.imshow(quantized_image)
+        #plt.show()
         
         face = Image.fromarray(quantized_image)
-        median = ImageStat.Stat(face).median
+        face_np = face.convert('RGB')
+        face_np = np.array(face_np)
+        face_np = face_np[:, :, ::-1].copy()
+        
+        #splitting colors
+        R = face_and[:, :, 2]
+        G = face_and[:, :, 1]
+        B = face_and[:, :, 0]
+        
+        med_R = int(np.mean(R[np.nonzero(R)]))
+        med_G = int(np.mean(G[np.nonzero(G)]))
+        med_B = int(np.mean(B[np.nonzero(B)]))
+        
+        l = len(R[np.nonzero(R)])
+        
+        median = [int(x/l) for x in ImageStat.Stat(face).sum]
+        
+        #median = [med_R, med_G, med_B]
         
         #to convert BGR to RGB
         org_img = image[:, :, ::-1].copy()
@@ -118,8 +143,10 @@ for img_path in picture_names:
         d = Draw(out)
         d.ellipse(((0,0),(0.2*image.shape[0],0.2*image.shape[1])), fill = tuple(median))
         success += 1
-        out.save('../results/out4/out_file_'+str(success)+'.jpg')
+        out.save('../results/out6/out_file_'+str(success)+'.jpg')
         print('Success ' + str(success))
+        #plt.imshow(out)
+        #plt.show()
     except:
         fail += 1
         print('Fail ' + str(fail))
