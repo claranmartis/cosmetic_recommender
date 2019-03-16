@@ -200,8 +200,12 @@ for img_path in picture_names:
         face_and = cv2.bitwise_and(img, mask)
         #plt.imshow(face_and)
         #plt.show()
-
         
+        print(type(face_and))
+        print(type(face))
+
+        #face_and = face_and[:, :, ::-1]
+        face = Image.fromarray(face_and)
         #color quantization
         quantized_image = color_quant(face)
         #plt.imshow(quantized_image)
@@ -209,38 +213,45 @@ for img_path in picture_names:
         
 
         
-        face = Image.fromarray(quantized_image)
-        '''
+        #face = Image.fromarray(quantized_image)
+        
         face_np = face.convert('RGB')
         face_np = np.array(face_np)
         face_np = face_np[:, :, ::-1].copy()
-        '''
+        
+        face_np = face_np[int(.2*face_and.shape[0]):int(.8*face_and.shape[0]), int(.2*face_and.shape[1]):int(.8*face_and.shape[1])]
         
         #splitting colors
         R = face_and[:,:,2]
-        '''
-        R = int(np.median(face_and[:, :, 2]))
-        G = int(np.median(face_and[:, :, 1]))
-        B = int(np.median(face_and[:, :, 0]))
         
+        R = int(np.median(face_np[:, :, 2]))
+        G = int(np.median(face_np[:, :, 1]))
+        B = int(np.median(face_np[:, :, 0]))
         
-        median = [B,R,G]'''
+        R,G,B = cv2.split(face_np)
+        
+        median = [0,0,0]
+        median[0] = int(np.median(B[np.nonzero(B)]))
+        median[1] = int(np.median(G[np.nonzero(G)]))
+        median[2] = int(np.median(R[np.nonzero(R)]))
+        
         
         l = len(R[np.nonzero(R)])
         
         mean = [int(x/l) for x in ImageStat.Stat(face).sum]
+        #median = ImageStat.Stat(face).median
         
         #to convert BGR to RGB
         org_img = image[:, :, ::-1].copy()
         #draw an ellipse with fill color as the detected skin color
         out = Image.fromarray(org_img)
         d = Draw(out)
-        d.ellipse(((0,0),(0.2*image.shape[0],0.2*image.shape[1])), fill = tuple(mean))
+        d.ellipse(((0,0),(0.2*image.shape[0],0.2*image.shape[1])), fill = tuple(median))
         success += 1
-        out.save('../results/out7/out_file_'+str(success)+'.jpg')
+        out.save('../results/out8/out_file_'+str(success)+'.jpg')
         print('Success ' + str(success))
-        #plt.imshow(out)
-        #plt.show()
+        plt.imshow(out)
+        plt.show()
     except:
         fail += 1
         print('Fail ' + str(fail))
