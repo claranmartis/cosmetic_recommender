@@ -1,0 +1,144 @@
+Script started on Thu Mar  7 17:13:10 2019
+[?1034hbash-3.2$ cd scripts/
+bash-3.2$ ls
+adaptive_masking_1.py			shape_predictor_68_face_landmarks.dat
+masking_facial_features.py		skin_detect_color_quant_1.py
+pic.jpg					skin_tone_detection.py
+bash-3.2$ git add shape_predictor_68_face_landmarks.dat 
+bash-3.2$ git add masking_facial_features.py 
+bash-3.2$ cd ..
+bash-3.2$ cd results/
+bash-3.2$ cd [K[K[Kgit [K[K[K[Kls
+out	out2	out3	out4	out5	out6	out7
+bash-3.2$ gir [K[Kt add out7
+bash-3.2$ git commit -m "RE[K[Kmasked eyes, eyebrow & mouth"[1@s[C[C[C[C[C[C[C[1Ph"[C[C[K[K[K[K[Klips"
+[master fc12420] masked eyes, eyebrows & lips
+ Committer: Claran Martis <claran@Clarans-MacBook-Pro.local>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 101 files changed, 248 insertions(+)
+ create mode 100644 results/out7/out_file_1.jpg
+ create mode 100644 results/out7/out_file_10.jpg
+ create mode 100644 results/out7/out_file_11.jpg
+ create mode 100644 results/out7/out_file_12.jpg
+ create mode 100644 results/out7/out_file_13.jpg
+ create mode 100644 results/out7/out_file_14.jpg
+ create mode 100644 results/out7/out_file_15.jpg
+ create mode 100644 results/out7/out_file_16.jpg
+ create mode 100644 results/out7/out_file_17.jpg
+ create mode 100644 results/out7/out_file_18.jpg
+ create mode 100644 results/out7/out_file_19.jpg
+ create mode 100644 results/out7/out_file_2.jpg
+ create mode 100644 results/out7/out_file_20.jpg
+ create mode 100644 results/out7/out_file_21.jpg
+ create mode 100644 results/out7/out_file_22.jpg
+ create mode 100644 results/out7/out_file_23.jpg
+ create mode 100644 results/out7/out_file_24.jpg
+ create mode 100644 results/out7/out_file_25.jpg
+ create mode 100644 results/out7/out_file_26.jpg
+ create mode 100644 results/out7/out_file_27.jpg
+ create mode 100644 results/out7/out_file_28.jpg
+ create mode 100644 results/out7/out_file_29.jpg
+ create mode 100644 results/out7/out_file_3.jpg
+ create mode 100644 results/out7/out_file_30.jpg
+ create mode 100644 results/out7/out_file_31.jpg
+ create mode 100644 results/out7/out_file_32.jpg
+ create mode 100644 results/out7/out_file_33.jpg
+ create mode 100644 results/out7/out_file_34.jpg
+ create mode 100644 results/out7/out_file_35.jpg
+ create mode 100644 results/out7/out_file_36.jpg
+ create mode 100644 results/out7/out_file_37.jpg
+ create mode 100644 results/out7/out_file_38.jpg
+ create mode 100644 results/out7/out_file_39.jpg
+ create mode 100644 results/out7/out_file_4.jpg
+ create mode 100644 results/out7/out_file_40.jpg
+ create mode 100644 results/out7/out_file_41.jpg
+ create mode 100644 results/out7/out_file_42.jpg
+ create mode 100644 results/out7/out_file_43.jpg
+ create mode 100644 results/out7/out_file_44.jpg
+ create mode 100644 results/out7/out_file_45.jpg
+ create mode 100644 results/out7/out_file_46.jpg
+ create mode 100644 results/out7/out_file_47.jpg
+ create mode 100644 results/out7/out_file_48.jpg
+ create mode 100644 results/out7/out_file_49.jpg
+ create mode 100644 results/out7/out_file_5.jpg
+ create mode 100644 results/out7/out_file_50.jpg
+ create mode 100644 results/out7/out_file_51.jpg
+ create mode 100644 results/out7/out_file_52.jpg
+ create mode 100644 results/out7/out_file_53.jpg
+ create mode 100644 results/out7/out_file_54.jpg
+ create mode 100644 results/out7/out_file_55.jpg
+ create mode 100644 results/out7/out_file_56.jpg
+ create mode 100644 results/out7/out_file_57.jpg
+ create mode 100644 results/out7/out_file_58.jpg
+ create mode 100644 results/out7/out_file_59.jpg
+ create mode 100644 results/out7/out_file_6.jpg
+ create mode 100644 results/out7/out_file_60.jpg
+ create mode 100644 results/out7/out_file_61.jpg
+ create mode 100644 results/out7/out_file_62.jpg
+ create mode 100644 results/out7/out_file_63.jpg
+ create mode 100644 results/out7/out_file_64.jpg
+ create mode 100644 results/out7/out_file_65.jpg
+ create mode 100644 results/out7/out_file_66.jpg
+ create mode 100644 results/out7/out_file_67.jpg
+ create mode 100644 results/out7/out_file_68.jpg
+ create mode 100644 results/out7/out_file_69.jpg
+ create mode 100644 results/out7/out_file_7.jpg
+ create mode 100644 results/out7/out_file_70.jpg
+ create mode 100644 results/out7/out_file_71.jpg
+ create mode 100644 results/out7/out_file_72.jpg
+ create mode 100644 results/out7/out_file_73.jpg
+ create mode 100644 results/out7/out_file_74.jpg
+ create mode 100644 results/out7/out_file_75.jpg
+ create mode 100644 results/out7/out_file_76.jpg
+ create mode 100644 results/out7/out_file_77.jpg
+ create mode 100644 results/out7/out_file_78.jpg
+ create mode 100644 results/out7/out_file_79.jpg
+ create mode 100644 results/out7/out_file_8.jpg
+ create mode 100644 results/out7/out_file_80.jpg
+ create mode 100644 results/out7/out_file_81.jpg
+ create mode 100644 results/out7/out_file_82.jpg
+ create mode 100644 results/out7/out_file_83.jpg
+ create mode 100644 results/out7/out_file_84.jpg
+ create mode 100644 results/out7/out_file_85.jpg
+ create mode 100644 results/out7/out_file_86.jpg
+ create mode 100644 results/out7/out_file_87.jpg
+ create mode 100644 results/out7/out_file_88.jpg
+ create mode 100644 results/out7/out_file_89.jpg
+ create mode 100644 results/out7/out_file_9.jpg
+ create mode 100644 results/out7/out_file_90.jpg
+ create mode 100644 results/out7/out_file_91.jpg
+ create mode 100644 results/out7/out_file_92.jpg
+ create mode 100644 results/out7/out_file_93.jpg
+ create mode 100644 results/out7/out_file_94.jpg
+ create mode 100644 results/out7/out_file_95.jpg
+ create mode 100644 results/out7/out_file_96.jpg
+ create mode 100644 results/out7/out_file_97.jpg
+ create mode 100644 results/out7/out_file_98.jpg
+ create mode 100644 results/out7/out_file_99.jpg
+ create mode 100644 scripts/masking_facial_features.py
+ create mode 100644 scripts/shape_predictor_68_face_landmarks.dat
+bash-3.2$ git push -u origin master
+Counting objects: 106, done.
+Delta compression using up to 4 threads.
+Compressing objects:   0% (1/106)   Compressing objects:   1% (2/106)   Compressing objects:   2% (3/106)   Compressing objects:   3% (4/106)   Compressing objects:   4% (5/106)   Compressing objects:   5% (6/106)   Compressing objects:   6% (7/106)   Compressing objects:   7% (8/106)   Compressing objects:   8% (9/106)   Compressing objects:   9% (10/106)   Compressing objects:  10% (11/106)   Compressing objects:  11% (12/106)   Compressing objects:  12% (13/106)   Compressing objects:  13% (14/106)   Compressing objects:  14% (15/106)   Compressing objects:  15% (16/106)   Compressing objects:  16% (17/106)   Compressing objects:  17% (19/106)   Compressing objects:  18% (20/106)   Compressing objects:  19% (21/106)   Compressing objects:  20% (22/106)   Compressing objects:  21% (23/106)   Compressing objects:  22% (24/106)   Compressing objects:  23% (25/106)   Compressing objects:  24% (26/106)   Compressing objects:  25% (27/106)   Compressing objects:  26% (28/106)   Compressing objects:  27% (29/106)   Compressing objects:  28% (30/106)   Compressing objects:  29% (31/106)   Compressing objects:  30% (32/106)   Compressing objects:  31% (33/106)   Compressing objects:  32% (34/106)   Compressing objects:  33% (35/106)   Compressing objects:  34% (37/106)   Compressing objects:  35% (38/106)   Compressing objects:  36% (39/106)   Compressing objects:  37% (40/106)   Compressing objects:  38% (41/106)   Compressing objects:  39% (42/106)   Compressing objects:  40% (43/106)   Compressing objects:  41% (44/106)   Compressing objects:  42% (45/106)   Compressing objects:  43% (46/106)   Compressing objects:  44% (47/106)   Compressing objects:  45% (48/106)   Compressing objects:  46% (49/106)   Compressing objects:  47% (50/106)   Compressing objects:  48% (51/106)   Compressing objects:  49% (52/106)   Compressing objects:  50% (53/106)   Compressing objects:  51% (55/106)   Compressing objects:  52% (56/106)   Compressing objects:  53% (57/106)   Compressing objects:  54% (58/106)   Compressing objects:  55% (59/106)   Compressing objects:  56% (60/106)   Compressing objects:  57% (61/106)   Compressing objects:  58% (62/106)   Compressing objects:  59% (63/106)   Compressing objects:  60% (64/106)   Compressing objects:  61% (65/106)   Compressing objects:  62% (66/106)   Compressing objects:  63% (67/106)   Compressing objects:  64% (68/106)   Compressing objects:  65% (69/106)   Compressing objects:  66% (70/106)   Compressing objects:  67% (72/106)   Compressing objects:  68% (73/106)   Compressing objects:  69% (74/106)   Compressing objects:  70% (75/106)   Compressing objects:  71% (76/106)   Compressing objects:  72% (77/106)   Compressing objects:  73% (78/106)   Compressing objects:  74% (79/106)   Compressing objects:  75% (80/106)   Compressing objects:  76% (81/106)   Compressing objects:  77% (82/106)   Compressing objects:  78% (83/106)   Compressing objects:  79% (84/106)   Compressing objects:  80% (85/106)   Compressing objects:  81% (86/106)   Compressing objects:  82% (87/106)   Compressing objects:  83% (88/106)   Compressing objects:  84% (90/106)   Compressing objects:  85% (91/106)   Compressing objects:  86% (92/106)   Compressing objects:  87% (93/106)   Compressing objects:  88% (94/106)   Compressing objects:  89% (95/106)   Compressing objects:  90% (96/106)   Compressing objects:  91% (97/106)   Compressing objects:  92% (98/106)   Compressing objects:  93% (99/106)   Compressing objects:  94% (100/106)   Compressing objects:  95% (101/106)   Compressing objects:  96% (102/106)   Compressing objects:  97% (103/106)   Compressing objects:  98% (104/106)   Compressing objects:  99% (105/106)   Compressing objects: 100% (106/106)   Compressing objects: 100% (106/106), done.
+Writing objects:   0% (1/106)   Writing objects:   1% (2/106)   Writing objects:   2% (3/106)   Writing objects:   3% (4/106)   Writing objects:   4% (5/106)   Writing objects:   5% (6/106)   Writing objects:   6% (7/106)   Writing objects:   7% (8/106)   Writing objects:   8% (9/106)   Writing objects:   9% (10/106)   Writing objects:  10% (11/106)   Writing objects:  11% (12/106)   Writing objects:  12% (13/106)   Writing objects:  13% (14/106)   Writing objects:  14% (15/106)   Writing objects:  15% (16/106)   Writing objects:  16% (17/106)   Writing objects:  17% (19/106)   Writing objects:  18% (20/106)   Writing objects:  19% (21/106)   Writing objects:  20% (22/106)   Writing objects:  21% (23/106)   Writing objects:  22% (24/106)   Writing objects:  23% (25/106)   Writing objects:  24% (26/106)   Writing objects:  25% (27/106)   Writing objects:  26% (28/106)   Writing objects:  27% (29/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  28% (30/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  29% (31/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  30% (32/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  31% (33/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  32% (34/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  33% (35/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  34% (37/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  35% (38/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  36% (39/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  37% (40/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  38% (41/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  39% (42/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  40% (43/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  41% (44/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  42% (45/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  43% (46/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  44% (47/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  45% (48/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  46% (49/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  47% (50/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  48% (51/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  49% (52/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  50% (53/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  51% (55/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  52% (56/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  53% (57/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  54% (58/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  55% (59/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  56% (60/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  57% (61/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  58% (62/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  59% (63/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  60% (64/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  61% (65/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  62% (66/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  63% (67/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  64% (68/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  65% (69/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  66% (70/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  67% (72/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  68% (73/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  69% (74/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  70% (75/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  71% (76/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  72% (77/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  73% (78/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  74% (79/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  75% (80/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  76% (81/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  77% (82/106), 2.51 MiB | 4.95 MiB/s   Writing objects:  78% (83/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  79% (84/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  80% (85/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  81% (86/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  82% (87/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  83% (88/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  84% (90/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  85% (91/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  86% (92/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  87% (93/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  88% (94/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  89% (95/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  90% (96/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  91% (97/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  92% (98/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  93% (99/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  94% (100/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  95% (101/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  96% (102/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  97% (103/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  98% (104/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  99% (105/106), 8.09 MiB | 8.01 MiB/s   Writing objects:  99% (105/106), 10.02 MiB | 873.00 KiB/s   Writing objects:  99% (105/106), 17.34 MiB | 1.41 MiB/s   Writing objects:  99% (105/106), 24.27 MiB | 1.82 MiB/s   Writing objects:  99% (105/106), 33.34 MiB | 2.32 MiB/s   Writing objects:  99% (105/106), 41.02 MiB | 2.58 MiB/s   Writing objects:  99% (105/106), 49.70 MiB | 8.39 MiB/s   Writing objects:  99% (105/106), 56.08 MiB | 7.54 MiB/s   Writing objects:  99% (105/106), 60.45 MiB | 7.67 MiB/s   Writing objects:  99% (105/106), 71.45 MiB | 8.12 MiB/s   Writing objects: 100% (106/106), 77.52 MiB | 8.70 MiB/s   Writing objects: 100% (106/106), 78.99 MiB | 3.99 MiB/s, done.
+Total 106 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/1)   [Kremote: Resolving deltas: 100% (1/1)   [Kremote: Resolving deltas: 100% (1/1), completed with 1 local object.[K
+remote: warning: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.[K
+remote: warning: See http://git.io/iEPt8g for more information.[K
+remote: warning: File scripts/shape_predictor_68_face_landmarks.dat is 95.08 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB[K
+To https://github.com/claranmartis/cosmetic_recommender.git
+   171b762..fc12420  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+bash-3.2$ 

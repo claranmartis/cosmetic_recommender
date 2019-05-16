@@ -25,6 +25,8 @@ fail = 0
 
 kernel = np.ones((5,5), np.uint8)
 
+fenty = {130:(237,212,181), 
+         120:(249,228,207)}
 
  
 def strokeEdge(src, dst, blurKSize = 7, edgeKSize = 5):
@@ -135,7 +137,7 @@ def color_quant(img):
     
     # define criteria, number of clusters(K) and apply kmeans()
     criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-    K = 4
+    K = 3
     ret,label,center=cv2.kmeans(Z,K,None,criteria,10,cv2.KMEANS_RANDOM_CENTERS)
     
     
@@ -157,12 +159,46 @@ for r, d, f in os.walk(thisdir):
             picture_names.append(os.path.join(r,file))
 
 
-for img_path in picture_names:
+for img_path in picture_names[:1]:
     try:
         #load image
+        #img_path = '/Users/claran/Downloads/DiandraForrestAlbino.jpg'
+        img_path = '../women_headshots/59. ivana_4x3_cl.jpg'
         image = cv2.imread(img_path)
         #make a copy of the image for processing
         img = image.copy()
+        
+        
+        
+        #correction for uneven lighting
+        lab_img = cv2.cvtColor(image,cv2.COLOR_BGR2Lab)
+        l,a,b = cv2.split(lab_img)
+        plt.imshow(l,cmap='gray')
+        #plt.show()
+        plt.imshow(a,cmap='gray')
+        #plt.show()
+        plt.imshow(b,cmap='gray')
+        #plt.show()
+        #plt.imshow(lab_img)
+        #plt.show()
+        #L,A,B = cv2.split(lab_img)
+        #clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8,8))
+        #cl = clahe.apply(L)
+        #limg = cv2.merge((cl,A,B))
+        #plt.imshow(limg)
+        #lab_img[: ,:, 0] = cv2.equalizeHist(lab_img[: ,:, 0])
+        #lab_img[: ,:, 0] = cv2.medianBlur(lab_img[: ,:, 0],5)
+        #lab_img[: ,:, 0] = np.full(lab_img[: ,:, 0].shape,np.median(lab_img[: ,:, 0]))
+        img = cv2.cvtColor(lab_img,cv2.COLOR_Lab2RGB)
+        plt.imshow(img)
+        plt.axis('off')
+        #plt.title('Correction for uneven lighting')
+        #plt.show()
+        img = cv2.cvtColor(lab_img,cv2.COLOR_Lab2BGR)
+        
+        
+        
+        
         
         #mask facial features like eyes, eyebrows, and lips
         img = facial_features(img)
@@ -180,6 +216,10 @@ for img_path in picture_names:
         img = img[:, :, ::-1].copy()
         #face = img.copy()
         #img=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+        
+        
+        
+        
         
         
         #creating a mask
@@ -201,14 +241,15 @@ for img_path in picture_names:
         #plt.imshow(face_and)
         #plt.show()
         
-        print(type(face_and))
-        print(type(face))
+        #print(type(face_and))
+        #print(type(face))
 
         #face_and = face_and[:, :, ::-1]
         face = Image.fromarray(face_and)
         #color quantization
         quantized_image = color_quant(face)
-        #plt.imshow(quantized_image)
+        quantized_image = quantized_image[:, :, ::-1]
+        plt.imshow(quantized_image)
         #plt.show()
         
 
@@ -219,7 +260,10 @@ for img_path in picture_names:
         face_np = np.array(face_np)
         face_np = face_np[:, :, ::-1].copy()
         
+        #removing 20% from all sides in the image
         face_np = face_np[int(.2*face_and.shape[0]):int(.8*face_and.shape[0]), int(.2*face_and.shape[1]):int(.8*face_and.shape[1])]
+        
+        
         
         #splitting colors
         R = face_and[:,:,2]
@@ -231,9 +275,9 @@ for img_path in picture_names:
         R,G,B = cv2.split(face_np)
         
         median = [0,0,0]
-        median[0] = int(np.median(B[np.nonzero(B)]))
-        median[1] = int(np.median(G[np.nonzero(G)]))
-        median[2] = int(np.median(R[np.nonzero(R)]))
+        median[2] = int(np.mean(B[np.nonzero(B)]))
+        median[1] = int(np.mean(G[np.nonzero(G)]))
+        median[0] = int(np.mean(R[np.nonzero(R)]))
         
         
         l = len(R[np.nonzero(R)])
@@ -242,16 +286,36 @@ for img_path in picture_names:
         #median = ImageStat.Stat(face).median
         
         #to convert BGR to RGB
+        cv2.circle(image,(int(0.15*image.shape[0]),int(0.15*image.shape[0])),int(0.15*image.shape[0]),(median),-1)
+        cv2.circle(image,(int(0.15*image.shape[0]),3*int(0.15*image.shape[0])),int(0.15*image.shape[0]),(),-1)
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        cv2.putText(image,'OpenCV',(int(0.5*image.shape[0]),int(0.7*image.shape[1])), font, 4,(255,255,255),10,cv2.LINE_AA)
         org_img = image[:, :, ::-1].copy()
         #draw an ellipse with fill color as the detected skin color
         out = Image.fromarray(org_img)
-        d = Draw(out)
-        d.ellipse(((0,0),(0.2*image.shape[0],0.2*image.shape[1])), fill = tuple(median))
+        #d = Draw(out)
+        #d.ellipse(((0,0),(0.2*image.shape[0],0.2*image.shape[1])), fill = tuple(median))
         success += 1
-        out.save('../results/out8/out_file_'+str(success)+'.jpg')
+        #out.save('../results/out9/out_file_'+str(success)+'.jpg')
         print('Success ' + str(success))
         plt.imshow(out)
+        plt.axis('off')
         plt.show()
+        
+        '''
+        lab_img = cv2.cvtColor(img,cv2.COLOR_RGB2Lab)
+        L = lab_img[: ,:, 0]
+        L = cv2.equalizeHist(L)
+        A = lab_img[:, :, 1]
+        B = lab_img[:, :, 2]
+        
+        plt.imshow(L, cmap='gray')
+        plt.show()
+        plt.imshow(A, cmap='gray')
+        plt.show()
+        plt.imshow(B, cmap='gray')
+        plt.show()'''
+
     except:
         fail += 1
         print('Fail ' + str(fail))

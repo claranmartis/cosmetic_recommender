@@ -21,6 +21,7 @@ thisdir = '../women_headshots'
 picture_names = []
 success = 0
 fail = 0
+kernel = np.ones((5,5), np.uint8)
 
 
 #function to detect the faces
@@ -69,7 +70,7 @@ for r, d, f in os.walk(thisdir):
             picture_names.append(os.path.join(r,file))
 
 
-for img_path in picture_names:
+for img_path in picture_names[:1]:
     try:
         #load image
         image = cv2.imread(img_path)
@@ -122,31 +123,22 @@ for img_path in picture_names:
         face_np = face_np[:, :, ::-1].copy()
         
         #splitting colors
-        R = face_and[:, :, 2]
-        G = face_and[:, :, 1]
-        B = face_and[:, :, 0]
-        
-        med_R = int(np.mean(R[np.nonzero(R)]))
-        med_G = int(np.mean(G[np.nonzero(G)]))
-        med_B = int(np.mean(B[np.nonzero(B)]))
-        
+        R = face_and[:, :, 0]      
         l = len(R[np.nonzero(R)])
         
-        median = [int(x/l) for x in ImageStat.Stat(face).sum]
-        
-        #median = [med_R, med_G, med_B]
+        mean = [int(x/l) for x in ImageStat.Stat(face).sum]
         
         #to convert BGR to RGB
         org_img = image[:, :, ::-1].copy()
         #draw an ellipse with fill color as the detected skin color
         out = Image.fromarray(org_img)
         d = Draw(out)
-        d.ellipse(((0,0),(0.2*image.shape[0],0.2*image.shape[1])), fill = tuple(median))
+        d.ellipse(((0,0),(0.2*image.shape[0],0.2*image.shape[1])), fill = tuple(mean))
         success += 1
-        out.save('../results/out6/out_file_'+str(success)+'.jpg')
+        #out.save('../results/out6/out_file_'+str(success)+'.jpg')
         print('Success ' + str(success))
-        #plt.imshow(out)
-        #plt.show()
+        plt.imshow(out)
+        plt.show()
     except:
         fail += 1
         print('Fail ' + str(fail))

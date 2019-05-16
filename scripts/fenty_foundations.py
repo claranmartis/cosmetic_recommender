@@ -4,6 +4,16 @@
 Created on Wed Mar  6 14:17:10 2019
 
 @author: claran
+
+The algorithm used is as follows:
+    1. Load image
+    2. detect and crop face
+    3. mask facial features
+    4. Convert to BW image with adaptive threshold. This BW image will be used as a mask
+    5. convert the mask from 2D to 3D and apply to color image using AND operation
+    5. remove 20% from all sides.
+    6. find the skin colour using median while ignoring the masked region.
+    7. match skin color to the fenty foundation colors
 """
 
 import cv2
@@ -207,7 +217,7 @@ def match_foundation(skin_color):
     for k,v in fenty.items():
         p1 = np.array(v)
         p2 = np.array(skin_color)
-        #p2 = p2[::-1]   #converting skin color from BGR to RGB
+        p2 = p2[::-1]   #converting skin color from BGR to RGB
         dist = np.linalg.norm(p2-p1)
         c = {k:dist}
         color_log.update(c)
@@ -233,8 +243,19 @@ for r, d, f in os.walk(thisdir):
         if ".jpg" in file:
             picture_names.append(os.path.join(r,file))
 
+'''
+os.chdir('../results')
+directory = 'out11'
+if not os.path.exists(directory):
+    os.makedirs(directory)
+    print('new directory_created and changed')
+    print(os.getcwd())
+    
+#os.chdir(directory)
+            
+'''
 
-for img_path in picture_names:
+for img_path in picture_names[:5]:
     try:
         #load image
         #img_path = '/Users/claran/Downloads/DiandraForrestAlbino.jpg'
@@ -242,8 +263,6 @@ for img_path in picture_names:
         image = cv2.imread(img_path)
         #make a copy of the image for processing
         img = image.copy()
-        
-        
         
         #correction for uneven lighting
         lab_img = cv2.cvtColor(image,cv2.COLOR_BGR2Lab)
@@ -265,7 +284,7 @@ for img_path in picture_names:
         #lab_img[: ,:, 0] = cv2.medianBlur(lab_img[: ,:, 0],5)
         #lab_img[: ,:, 0] = np.full(lab_img[: ,:, 0].shape,np.median(lab_img[: ,:, 0]))
         img = cv2.cvtColor(lab_img,cv2.COLOR_Lab2RGB)
-        plt.imshow(img)
+        #plt.imshow(img)
         plt.axis('off')
         #plt.title('Correction for uneven lighting')
         #plt.show()
@@ -275,12 +294,15 @@ for img_path in picture_names:
         #mask facial features like eyes, eyebrows, and lips
         img = facial_features(img)
         
+        #displaying initial mask
+        plt.imshow(img[:,:,::-1])
+        plt.show()
+        
         #face detection
         detected_faces = detect_faces(img)
         #crop the detected face
         img = Image.fromarray(img).crop(detected_faces[0])
         face = img.copy()       #saving a copy of color image of cropped face
-        
         
         #convert to a numpy array for opencv processing functions
         img = img.convert('RGB')
@@ -289,6 +311,11 @@ for img_path in picture_names:
         #face = img.copy()
         #img=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
 
+        #displaying cropped face
+        plt.imshow(img)
+        plt.show()
+        cropped_face = img
+        
         
         #creating a mask
         face_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -306,17 +333,26 @@ for img_path in picture_names:
         #increasing the length of the mask for RGB planes. 
         mask = cv2.merge((face_th,face_th,face_th))
         face_and = cv2.bitwise_and(img, mask)
-        #plt.imshow(face_and)
-        #plt.show()
+        
+        #displaying image after both masks
+        plt.imshow(face_and)
+        plt.show()
+        both_mask = face_and
 
 
         #face_and = face_and[:, :, ::-1]
         face = Image.fromarray(face_and)
+        
         #color quantization
         quantized_image = color_quant(face)
         quantized_image = quantized_image[:, :, ::-1]
+        
+        #displaying image after color quantization
         plt.imshow(quantized_image)
-        #plt.show()
+        plt.show()
+        #This section is not being used in the final code, but even if used it gives similar result
+        #uncomment the below line to use color quantization in the code
+        #face = Image.fromarray(quantized_image)
         
 
         
@@ -325,6 +361,7 @@ for img_path in picture_names:
         face_np = face.convert('RGB')
         face_np = np.array(face_np)
         face_np = face_np[:, :, ::-1].copy()
+
         
         #removing 20% from all sides in the image. This removes the effect of hair and maximizes the area of the skin
         face_np = face_np[int(.2*face_and.shape[0]):int(.8*face_and.shape[0]), int(.2*face_and.shape[1]):int(.8*face_and.shape[1])]
@@ -341,9 +378,9 @@ for img_path in picture_names:
         R,G,B = cv2.split(face_np)
         
         median = [0,0,0]
-        median[2] = int(np.mean(B[np.nonzero(B)]))
-        median[1] = int(np.mean(G[np.nonzero(G)]))
-        median[0] = int(np.mean(R[np.nonzero(R)]))
+        median[2] = int(np.median(B[np.nonzero(B)]))
+        median[1] = int(np.median(G[np.nonzero(G)]))
+        median[0] = int(np.median(R[np.nonzero(R)]))
         
         
         #l = len(R[np.nonzero(R)])
@@ -385,11 +422,36 @@ for img_path in picture_names:
         #draw an ellipse with fill color as the detected skin color
         out = Image.fromarray(org_img)
         success += 1
-        out.save('../results/out10/out_file_'+str(success)+'.jpg')
+        #create a folder for each image and store all the interemediate files in the new folder
+        #out.save('../results/out10/out_file_'+str(success)+'.jpg')
         print('Success ' + str(success))
+        #displaying the final output
         plt.imshow(out)
         plt.axis('off')
         #plt.show()
+        
+        '''
+        directory = 'out_file_' + str(success)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+            os.chdir(directory)
+            print('directory changed to' + str(directory))
+        
+        out.save('out_file_'+str(success)+'/final.jpg')
+        cropped_face.save('out_file_'+str(success)+'/masked_features.jpg')
+        both_mask.save('out_file_'+str(success)+'/adaptive_BW_mask.jpg')
+        #quantized_image.save('out_file_'+str(success)+'/quantized.jpg')
+        
+        '''
+        
+        cropped_face = Image.fromarray(cropped_face)
+        both_mask = Image.fromarray(both_mask)
+        
+        out.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'final.jpg')
+        cropped_face.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'masked_features.jpg')
+        both_mask.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'adaptive_BW_mask.jpg')
+        #quantized_image.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'quantized.jpg')
+        
 
     except:
         fail += 1
