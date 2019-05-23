@@ -29,6 +29,7 @@ import imutils
 
 
 thisdir = '../women_headshots'
+thisdir = '../image_combined'
 picture_names = []
 success = 0
 fail = 0
@@ -255,7 +256,7 @@ if not os.path.exists(directory):
             
 '''
 
-for img_path in picture_names[:5]:
+for img_path in picture_names:
     try:
         #load image
         #img_path = '/Users/claran/Downloads/DiandraForrestAlbino.jpg'
@@ -447,9 +448,9 @@ for img_path in picture_names[:5]:
         cropped_face = Image.fromarray(cropped_face)
         both_mask = Image.fromarray(both_mask)
         
-        out.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'final.jpg')
-        cropped_face.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'masked_features.jpg')
-        both_mask.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'adaptive_BW_mask.jpg')
+        out.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out12/out_file_'+str(success)+'final.jpg')
+        #cropped_face.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'masked_features.jpg')
+        #both_mask.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'adaptive_BW_mask.jpg')
         #quantized_image.save('/Users/claran/Documents/conex/cosmetic_recommender/results/out11/out_file_'+str(success)+'quantized.jpg')
         
 
